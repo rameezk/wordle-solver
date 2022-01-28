@@ -1,80 +1,32 @@
 (ns dev.rameezkhan.wordle-solver.core
   (:gen-class)
-  (:require [ring.adapter.jetty :as jetty]))
+  (:require [dev.rameezkhan.wordle-solver.wordle :as wordle]))
 
-(defn handler
-  [request]
-  {:status 200
-   :headers {"Content-Type" "text/plain"}
-   :body "Hello World!"})
-
-(defn app-server-start
-  []
-  (jetty/run-jetty handler {:port 3000 :join? false}))
-
-;; (def unknown-char "#")
-
-;; (def words (sort (str/split-lines (slurp "resource/words.txt")))
-;;   #_'("react"
-;;       "crack"
-;;       "plack"
-;;       "shack"
-;;       "whack"
-;;       "apple"))
-
-;; (def correct-word "whack")
-
-;; (defn word?
-;;   "Checks for valid word in wordlist"
-;;   [word-list word]
-;;   (not (nil? (some #{word} word-list))))
-
-;; (def input [["r" :no-spot]
-;;             ["e" :no-spot]
-;;             ["a" :correct-spot]
-;;             ["c" :correct-spot]
-;;             ["t" :no-spot]])
-
-;; (def input2 [["c" :no-spot]
-;;             ["r" :no-spot]
-;;             ["a" :correct-spot]
-;;             ["c" :correct-spot]
-;;             ["k" :correct-spot]])
-
-;; (defn build-ordered-regex
-;;   "Build an order regex from an input"
-;;   [input]
-;;   (reduce
-;;    (fn
-;;      [re-search [char spot]]
-;;      (str
-;;       re-search
-;;       (if (= spot :correct-spot) char "."))) "" input))
-
-;; (defn get-matches
-;;   "Get a list of matches matching a search pattern"
-;;   [word-list pattern]
-;;   (filter #(re-find (re-pattern pattern) %) word-list))
-
-;; (def re-search (build-ordered-regex input))
-
-
-;; (re-find (re-pattern re-search) (second words))
-;; (get-matches words re-search)
-
-
-
-(defn -main
-  [& args]
-  (app-server-start))
-
-;; (comment
-
-;;   (def app-server-instance (-main))
-
-;;   (.stop app-server-instance)
-
-;;   )
-
-
-
+(= "perky"
+   (:word
+    (wordle/solve [[["a" :no-spot]
+                    ["p" :incorrect-spot]
+                    ["p" :no-spot]
+                    ["l" :no-spot]
+                    ["e" :incorrect-spot]]
+                   [["t" :no-spot]
+                    ["y" :incorrect-spot]
+                    ["p" :incorrect-spot]
+                    ["e" :incorrect-spot]
+                    ["d" :no-spot]]
+                   [["p" :correct-spot]
+                    ["e" :correct-spot]
+                    ["n" :no-spot]
+                    ["n" :no-spot]
+                    ["y" :correct-spot]]
+                   [["p" :correct-spot]
+                    ["e" :correct-spot]
+                    ["r" :correct-spot]
+                    ["k" :correct-spot]
+                    ["y" :correct-spot]]
+                   #_[["c" :no-spot]
+                      ["o" :correct-spot]
+                      ["u" :correct-spot]
+                      ["n" :correct-spot]
+                      ["t" :correct-spot]]]
+                  wordle/words)))
